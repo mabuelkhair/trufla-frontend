@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import FilterForm from './components/filter-form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    products: [],
+    departments: []
+  }
+  render() {
+    return (
+      <FilterForm  departments={this.state.departments}/>
+    );
+  }
+  componentDidMount() {
+    fetch('http://localhost:8000/departments')
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({ departments: data })
+    })
+  }
+
 }
 
 export default App;
